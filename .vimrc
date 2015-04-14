@@ -30,8 +30,9 @@ set completeopt=menuone
 set t_Co=256
 set hlsearch
 set tabstop=4
-colorscheme jellybeans
-let g:jellybeans_use_lowcolor_black = 0
+colorscheme hybrid
+"colorscheme jellybeans
+"let g:jellybeans_use_lowcolor_black = 0
 for k in split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_",'\zs')
   exec "imap " . k . " " . k . "<C-N><C-P>"
 endfor
