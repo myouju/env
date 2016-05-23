@@ -67,3 +67,4 @@ endfor
 
 imap <expr> <TAB> pumvisible() ? "\<Down>" : "\<Tab>"
 
+autocmd BufRead,BufNewFile *.q set syntax=sql
