@@ -38,6 +38,7 @@ setopt COMPLETE_IN_WORD
 PATH=$PATH:/home/maeno/bin:/home/maeno/bin/emr:/home/maeno/.rbenv/bin:/home/maeno/.rbenv/shims:/opt/local/bin
 
 alias sudos="sudo -s"
+alias now="date +%Y%m%d%H%M%S"
 alias ls='ls --color=tty'
 alias ll='ls -l'
 alias sl="ls"
