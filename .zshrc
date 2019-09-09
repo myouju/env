@@ -3,8 +3,43 @@
 # It should contain commands to set up aliases,
 # functions, options, key bindings, etc.
 #
+PATH=/usr/local/bin:/opt/local/bin:~/bin:$PATH
+
+if [ -f ~/.gnupg/.gpg-agent-info ] && [ -n "$(pgrep gpg-agent)" ]; then
+    source ~/.gnupg/.gpg-agent-info
+    export GPG_AGENT_INFO
+else
+    eval $(gpg-agent --daemon)
+fi
 
 export _JAVA_OPTIONS="-Dfile.encoding=UTF-8"
+
+# for go
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+
+# for ruby
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
+# for python
+export PYENV_ROOT=$HOME/.pyenv
+export PATH=$PYENV_ROOT/bin:$PATH
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+# for nodejs
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+# for go
+export GOPATH=$HOME/go
+export GOENV_ROOT=$HOME/.goenv
+export PATH="$GOENV_ROOT/bin:$PATH"
+eval "$(goenv init -)"
+export PATH=$PATH:$GOPATH/bin
+export GO111MODULE=off
 
 autoload -U compinit
 compinit
@@ -35,11 +70,10 @@ setopt COMPLETE_IN_WORD
 # autoload -U colors
 #colors
 
-PATH=$PATH:/home/maeno/bin:/home/maeno/bin/emr:/home/maeno/.rbenv/bin:/home/maeno/.rbenv/shims:/opt/local/bin
-
 alias sudos="sudo -s"
 alias now="date +%Y%m%d%H%M%S"
-alias ls='ls --color=tty'
+# alias ls='ls -G'
+alias ls='lsd'
 alias ll='ls -l'
 alias sl="ls"
 alias s='sl'
@@ -89,6 +123,7 @@ function extract() {
   esac
 }
 alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=extract
+alias amesh='docker run -e TERM_PROGRAM --rm otiai10/amesh'
 
 compctl -M 'm:{a-z}={A-Z}'
 bindkey '^P' history-beginning-search-backward
@@ -112,6 +147,7 @@ case ${UID} in
 *)
   PROMPT="%{${fg[red]}%}%/%%%{${reset_color}%} "
   PROMPT="%F{cyan}[%n@%m %D{%m/%d %T} %~] %(!.#.$)%f "
+  PROMPT="%F{cyan}[%n %D{%m/%d %T} %~] %(!.#.$)%f "
   PROMPT2="%{${fg[red]}%}%_%%%{${reset_color}%} "
   SPROMPT="%{${fg[red]}%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
   [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] && 
@@ -226,3 +262,5 @@ zstyle ':vcs_info:*' formats '%s][* %F{green}%b%f'
 zstyle ':vcs_info:*' actionformats '%s][* %F{green}%b%f(%F{red}%a%f)'
 precmd() {vcs_info}
 PROMPT='[${vcs_info_msg_0_}]'${PROMPT}
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
