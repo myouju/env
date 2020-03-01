@@ -41,6 +41,10 @@ eval "$(goenv init -)"
 export PATH=$PATH:$GOPATH/bin
 export GO111MODULE=off
 
+
+eval $(thefuck --alias)
+
+fpath=(/usr/local/share/zsh-completions $fpath)
 autoload -U compinit
 compinit
 
@@ -72,6 +76,7 @@ setopt COMPLETE_IN_WORD
 
 alias sudos="sudo -s"
 alias now="date +%Y%m%d%H%M%S"
+alias now_branch="git branch --contains|tr -d '*'"
 # alias ls='ls -G'
 alias ls='lsd'
 alias ll='ls -l'
@@ -264,3 +269,6 @@ precmd() {vcs_info}
 PROMPT='[${vcs_info_msg_0_}]'${PROMPT}
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
