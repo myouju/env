@@ -45,9 +45,12 @@ export GO111MODULE=off
 
 eval $(thefuck --alias)
 
-fpath=(/usr/local/share/zsh-completions $fpath)
-autoload -U compinit
-compinit
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+
+  autoload -Uz compinit
+  compinit
+fi
 
 #allow tab completion in the middle of a word
 setopt COMPLETE_IN_WORD
@@ -78,6 +81,8 @@ setopt COMPLETE_IN_WORD
 alias sudos="sudo -s"
 alias now="date +%Y%m%d%H%M%S"
 alias now_branch="git branch --contains|tr -d '*'"
+alias vim="mvim -v"
+
 # alias ls='ls -G'
 alias ls='lsd'
 alias ll='ls -l'
@@ -275,11 +280,11 @@ source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/yukimaeno/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/yukimaeno/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/Users/yuki.maeno/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/yuki.maeno/Downloads/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/yukimaeno/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/yukimaeno/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f '/Users/yuki.maeno/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/yuki.maeno/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
 
-source /Users/yukimaeno/git/zsh-gcloud-prompt/gcloud.zsh
+source /Users/yuki.maeno/git/zsh-gcloud-prompt/gcloud.zsh
 RPROMPT='%{$fg[cyan]%}($ZSH_GCLOUD_PROMPT)%{$reset_color%}'
 export PATH="/usr/local/opt/llvm/bin:$PATH"
