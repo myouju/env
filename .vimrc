@@ -1,8 +1,13 @@
 call plug#begin()
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'SirVer/ultisnips'
 Plug 'kamykn/spelunker.vim'
 Plug 'tomlion/vim-solidity'
+Plug 'scrooloose/syntastic'
+Plug 'davidhalter/jedi-vim'
+Plug 'rhysd/git-messenger.vim'
+Plug 'tveskag/nvim-blame-line'
+Plug 'prettier/vim-prettier', { 'do': 'npm install', 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 call plug#end()
 let g:go_fmt_command = "goimports"
 let g:go_fmt_options = "-w"
@@ -11,6 +16,16 @@ let g:go_metalinter_autosave_enabled = ['vet']
 let mapleader = "\<Space>"
 au FileType go nmap <leader>s <Plug>(go-def-split)
 au FileType go nmap <leader>v <Plug>(go-def-vertical)
+
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby'] }
+let g:syntastic_ruby_checkers = ['rubocop']
+
+let g:jedi#use_splits_not_buffers = "left"
+
+let g:prettier#autoformat = 1
+
+nmap <Leader>gm <Plug>(git-messenger)
+nnoremap <silent> <leader>b :ToggleBlameLine<CR>
 
 nnoremap j gj
 nnoremap k gk

@@ -11,6 +11,7 @@ if [ -f ~/.gnupg/.gpg-agent-info ] && [ -n "$(pgrep gpg-agent)" ]; then
 else
     eval $(gpg-agent --daemon)
 fi
+export GPG_TTY=$(tty)
 
 export _JAVA_OPTIONS="-Dfile.encoding=UTF-8"
 
@@ -30,8 +31,8 @@ eval "$(pyenv virtualenv-init -)"
 
 # for nodejs
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # for go
 export GOPATH=$HOME/go
@@ -272,3 +273,13 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/yukimaeno/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/yukimaeno/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/yukimaeno/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/yukimaeno/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+
+source /Users/yukimaeno/git/zsh-gcloud-prompt/gcloud.zsh
+RPROMPT='%{$fg[cyan]%}($ZSH_GCLOUD_PROMPT)%{$reset_color%}'
+export PATH="/usr/local/opt/llvm/bin:$PATH"
